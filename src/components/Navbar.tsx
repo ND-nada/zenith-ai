@@ -1,14 +1,10 @@
 import { NavLink } from "@/components/NavLink";
 import { Button } from "@/components/ui/button";
-import { Menu, X, User } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { useAuth } from "@/contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useAuth();
-  const navigate = useNavigate();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass-effect border-b border-border/50">
@@ -57,16 +53,9 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            {user ? (
-              <Button onClick={() => navigate('/dashboard')}>
-                <User className="w-4 h-4 mr-2" />
-                Dashboard
-              </Button>
-            ) : (
-              <Button onClick={() => navigate('/login')}>
-                Get Started
-              </Button>
-            )}
+            <Button>
+              Get Started
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -115,28 +104,9 @@ const Navbar = () => {
             >
               Contact
             </NavLink>
-            {user ? (
-              <Button
-                className="w-full bg-gradient-to-r from-primary to-accent"
-                onClick={() => {
-                  setIsOpen(false);
-                  navigate('/dashboard');
-                }}
-              >
-                <User className="w-4 h-4 mr-2" />
-                Dashboard
-              </Button>
-            ) : (
-              <Button
-                className="w-full bg-gradient-to-r from-primary to-accent"
-                onClick={() => {
-                  setIsOpen(false);
-                  navigate('/login');
-                }}
-              >
-                Get Started
-              </Button>
-            )}
+            <Button className="w-full bg-gradient-to-r from-primary to-accent">
+              Get Started
+            </Button>
           </div>
         )}
       </div>
