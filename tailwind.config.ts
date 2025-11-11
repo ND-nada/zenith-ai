@@ -57,6 +57,15 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        'neon-green': {
+          DEFAULT: '#0FF00F',
+          light: '#5DD62C',
+          dark: '#337418',
+        },
+      },
+      fontFamily: {
+        sans: ['Montserrat', 'system-ui', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -98,9 +107,10 @@ export default {
         "glow": "glow 2s ease-in-out infinite",
       },
       boxShadow: {
-        'glow': '0 0 40px hsl(var(--primary) / 0.2)',
-        'glow-secondary': '0 0 40px hsl(var(--secondary) / 0.2)',
-        'elevated': '0 8px 40px hsl(0 0% 0% / 0.3)',
+        'glow': '0 0 40px hsl(120 88% 50% / 0.3)',
+        'glow-intense': '0 0 60px hsl(120 88% 50% / 0.5)',
+        'elevated': '0 8px 40px hsl(0 0% 0% / 0.5), 0 0 30px hsl(120 88% 50% / 0.15)',
+        'card': '0 4px 24px hsl(0 0% 0% / 0.4), 0 0 20px hsl(120 88% 50% / 0.1)',
       },
     },
   },

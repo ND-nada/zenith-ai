@@ -11,11 +11,11 @@ const Navbar = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <NavLink to="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-              <span className="text-white font-bold text-lg">N</span>
+          <NavLink to="/" className="flex items-center space-x-3 group">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow">
+              <span className="text-background font-extrabold text-xl font-montserrat">T</span>
             </div>
-            <span className="font-bold text-xl gradient-text">NextCore</span>
+            <span className="font-extrabold text-2xl gradient-text font-montserrat tracking-tight">TagerAi</span>
           </NavLink>
 
           {/* Desktop Navigation */}
@@ -23,29 +23,29 @@ const Navbar = () => {
             <NavLink
               to="/"
               end
-              className="text-muted-foreground hover:text-foreground transition-colors"
-              activeClassName="text-foreground font-medium"
+              className="text-muted-foreground hover:text-primary transition-all font-semibold font-montserrat"
+              activeClassName="text-primary"
             >
               Home
             </NavLink>
             <NavLink
               to="/products"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-              activeClassName="text-foreground font-medium"
+              className="text-muted-foreground hover:text-primary transition-all font-semibold font-montserrat"
+              activeClassName="text-primary"
             >
               Products
             </NavLink>
             <NavLink
               to="/bundles"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-              activeClassName="text-foreground font-medium"
+              className="text-muted-foreground hover:text-primary transition-all font-semibold font-montserrat"
+              activeClassName="text-primary"
             >
               Bundles
             </NavLink>
             <NavLink
               to="/contact"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-              activeClassName="text-foreground font-medium"
+              className="text-muted-foreground hover:text-primary transition-all font-semibold font-montserrat"
+              activeClassName="text-primary"
             >
               Contact
             </NavLink>
@@ -53,7 +53,7 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button className="bg-gradient-to-r from-primary to-accent hover:shadow-glow transition-all">
+            <Button>
               Get Started
             </Button>
           </div>
