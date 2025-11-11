@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Tech-Green Futuristic Color Palette */
+    /* Tech-Green Futuristic Color Palette - Toned Down */
     --background: 0 0% 4%; /* #0A0A0A */
     --foreground: 0 0% 97%; /* #F8F8F8 */
 
@@ -18,40 +18,47 @@ All colors MUST be HSL.
     --popover: 0 0% 13%;
     --popover-foreground: 0 0% 97%;
 
-    --primary: 120 88% 50%; /* #0FF00F - Neon Green */
+    --primary: 120 60% 45%; /* Toned down green */
     --primary-foreground: 0 0% 4%; /* Dark text on green */
 
-    --secondary: 97 66% 51%; /* #5DD62C - Lighter Green */
+    --secondary: 120 40% 55%; /* Softer green */
     --secondary-foreground: 0 0% 4%;
 
     --muted: 0 0% 20%;
     --muted-foreground: 0 0% 72%; /* #B8B8B8 */
 
-    --accent: 120 88% 50%; /* Neon green */
+    --accent: 120 50% 50%; /* Medium green */
     --accent-foreground: 0 0% 4%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 120 88% 50% / 0.2; /* Green border with opacity */
+    --border: 0 0% 25%; /* Grey border by default */
     --input: 0 0% 20%;
-    --ring: 120 88% 50%;
+    --ring: 120 50% 50%;
+
+    /* Grey Shades for Variety */
+    --grey-darker: 0 0% 8%; /* #141414 */
+    --grey-dark: 0 0% 15%; /* #262626 */
+    --grey-medium: 0 0% 25%; /* #404040 */
+    --grey-light: 0 0% 45%; /* #737373 */
+    --grey-lighter: 0 0% 65%; /* #A6A6A6 */
 
     --radius: 1rem;
 
-    /* Neon Green Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(120 88% 50%) 0%, hsl(97 66% 51%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(97 66% 51%) 0%, hsl(98 66% 27%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(0 0% 4%) 0%, hsl(120 88% 10%) 100%);
+    /* Subtle Green Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(120 60% 45%) 0%, hsl(120 40% 55%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(0 0% 15%) 0%, hsl(0 0% 20%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 4%) 0%, hsl(0 0% 10%) 100%);
     --gradient-card: linear-gradient(135deg, hsl(0 0% 13%) 0%, hsl(0 0% 15%) 100%);
-    --gradient-mesh: radial-gradient(circle at 20% 20%, hsl(120 88% 50% / 0.15) 0%, transparent 50%),
-                     radial-gradient(circle at 80% 80%, hsl(120 88% 50% / 0.1) 0%, transparent 50%);
+    --gradient-mesh: radial-gradient(circle at 20% 20%, hsl(120 50% 50% / 0.05) 0%, transparent 50%),
+                     radial-gradient(circle at 80% 80%, hsl(120 50% 50% / 0.03) 0%, transparent 50%);
 
-    /* Neon Green Glow Shadows */
-    --shadow-glow: 0 0 40px hsl(120 88% 50% / 0.3);
-    --shadow-glow-intense: 0 0 60px hsl(120 88% 50% / 0.5);
-    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.4), 0 0 20px hsl(120 88% 50% / 0.1);
-    --shadow-elevated: 0 8px 40px hsl(0 0% 0% / 0.5), 0 0 30px hsl(120 88% 50% / 0.15);
+    /* Subtle Shadows with Less Green */
+    --shadow-glow: 0 0 20px hsl(120 50% 50% / 0.15);
+    --shadow-glow-intense: 0 0 30px hsl(120 50% 50% / 0.25);
+    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.4), 0 0 10px hsl(120 50% 50% / 0.05);
+    --shadow-elevated: 0 8px 40px hsl(0 0% 0% / 0.5), 0 0 15px hsl(120 50% 50% / 0.08);
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -76,8 +83,8 @@ All colors MUST be HSL.
     position: fixed;
     inset: 0;
     background: 
-      linear-gradient(90deg, hsl(120 88% 50% / 0.03) 1px, transparent 1px),
-      linear-gradient(hsl(120 88% 50% / 0.03) 1px, transparent 1px);
+      linear-gradient(90deg, hsl(0 0% 25% / 0.03) 1px, transparent 1px),
+      linear-gradient(hsl(0 0% 25% / 0.03) 1px, transparent 1px);
     background-size: 50px 50px;
     pointer-events: none;
     z-index: 0;
@@ -158,14 +165,15 @@ All colors MUST be HSL.
   }
 
   .tech-card {
-    @apply bg-card border border-primary/20 rounded-2xl;
-    box-shadow: 0 0 20px hsl(120 88% 50% / 0.1);
+    @apply bg-card rounded-2xl;
+    border: 1px solid hsl(var(--grey-medium));
+    box-shadow: 0 0 10px hsl(0 0% 0% / 0.3);
     transition: all 0.3s ease;
   }
 
   .tech-card:hover {
-    border-color: hsl(120 88% 50% / 0.4);
-    box-shadow: 0 0 30px hsl(120 88% 50% / 0.2);
+    border-color: hsl(var(--primary) / 0.5);
+    box-shadow: 0 0 20px hsl(120 50% 50% / 0.15);
     transform: translateY(-4px);
   }
 
@@ -187,10 +195,10 @@ All colors MUST be HSL.
 
   @keyframes glow-pulse {
     0%, 100% { 
-      box-shadow: 0 0 20px hsl(120 88% 50% / 0.3);
+      box-shadow: 0 0 15px hsl(120 50% 50% / 0.15);
     }
     50% { 
-      box-shadow: 0 0 40px hsl(120 88% 50% / 0.5);
+      box-shadow: 0 0 25px hsl(120 50% 50% / 0.25);
     }
   }
 
