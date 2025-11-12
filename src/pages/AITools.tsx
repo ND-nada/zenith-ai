@@ -15,18 +15,19 @@ import DashboardSidebar from '@/components/DashboardSidebar';
 const AITools = () => {
   const { user } = useAuth();
   const [connections, setConnections] = useState<any[]>([]);
+  const [purchasedProducts, setPurchasedProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [testingConnection, setTestingConnection] = useState<string | null>(null);
   const [showApiKey, setShowApiKey] = useState(false);
   const [advancedOpen, setAdvancedOpen] = useState(false);
-  
+
   // Form state
   const [toolName, setToolName] = useState('');
   const [apiUrl, setApiUrl] = useState('');
   const [apiKey, setApiKey] = useState('');
   const [timeoutSeconds, setTimeoutSeconds] = useState('30');
   const [rateLimit, setRateLimit] = useState('');
-  
+
   // Test interface state
   const [testInput, setTestInput] = useState('');
   const [testOutput, setTestOutput] = useState('');
@@ -34,6 +35,7 @@ const AITools = () => {
 
   useEffect(() => {
     fetchConnections();
+    fetchPurchasedProducts();
   }, [user]);
 
   const fetchConnections = async () => {
@@ -53,6 +55,24 @@ const AITools = () => {
       toast.error('Failed to load connections');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchPurchasedProducts = async () => {
+    if (!user) return;
+
+    try {
+      const { data, error } = await supabase
+        .from('user_products')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('status', 'active')
+        .order('activated_at', { ascending: false });
+
+      if (error) throw error;
+      setPurchasedProducts(data || []);
+    } catch (error) {
+      console.error('Error fetching purchased products:', error);
     }
   };
 
@@ -194,6 +214,48 @@ const AITools = () => {
             Connect and manage your external AI tools and APIs
           </p>
         </div>
+
+        {/* Purchased Products Section */}
+        {purchasedProducts.length > 0 && (
+          <Card className="tech-card mb-8">
+            <CardHeader>
+              <CardTitle className="font-montserrat font-extrabold text-2xl">
+                Active Products
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {purchasedProducts.map((product) => (
+                <div key={product.id} className="p-6 bg-grey-dark rounded-lg space-y-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-glow">
+                        <span className="text-2xl font-bold text-background">AI</span>
+                      </div>
+                      <div>
+                        <h3 className="font-montserrat font-bold text-xl text-foreground">
+                          {product.product_name}
+                        </h3>
+                        <div className="flex items-center gap-3 mt-2">
+                          <Badge variant="default" className="neon-glow">
+                            {product.plan}
+                          </Badge>
+                          <span className="text-sm text-grey-light font-montserrat">
+                            Active since {new Date(product.activated_at).toLocaleDateString()}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-montserrat font-extrabold text-primary">
+                        ${product.price}/mo
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        )}
 
         {/* Connected Tools Section */}
         {connections.length > 0 && (

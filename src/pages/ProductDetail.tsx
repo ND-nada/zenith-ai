@@ -1,4 +1,5 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -6,10 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { products } from "@/data/products";
 import { Check, ArrowRight, Shield, Zap, Globe, Clock } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { AuthModal } from "@/components/AuthModal";
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth();
   const product = products.find((p) => p.id === id);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
 
   if (!product) {
     return (
@@ -27,12 +33,14 @@ const ProductDetail = () => {
   const pricingTiers = [
     {
       name: "Starter",
+      planKey: "starter",
       price: "$99",
       description: "Perfect for small teams",
       features: ["Up to 5 users", "Basic analytics", "Email support", "1GB storage"]
     },
     {
       name: "Professional",
+      planKey: "professional",
       price: product.price.match(/\$\d+/)?.[0] || "$299",
       description: "For growing businesses",
       features: ["Up to 50 users", "Advanced analytics", "Priority support", "10GB storage", "API access"],
@@ -40,11 +48,26 @@ const ProductDetail = () => {
     },
     {
       name: "Enterprise",
+      planKey: "enterprise",
       price: "Custom",
       description: "For large organizations",
       features: ["Unlimited users", "Custom integrations", "24/7 dedicated support", "Unlimited storage", "SLA guarantee"]
     }
   ];
+
+  const handleGetStarted = (planKey: string) => {
+    if (!user) {
+      setAuthModalOpen(true);
+      return;
+    }
+
+    if (planKey === 'enterprise') {
+      navigate('/contact');
+      return;
+    }
+
+    navigate(`/checkout?product=${product.id}&plan=${planKey}`);
+  };
 
   return (
     <div className="min-h-screen">
@@ -67,7 +90,11 @@ const ProductDetail = () => {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-gradient-to-r from-primary to-accent hover:shadow-glow">
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-primary to-accent hover:shadow-glow"
+                    onClick={() => handleGetStarted('professional')}
+                  >
                     Get Started
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
@@ -182,6 +209,7 @@ const ProductDetail = () => {
                         : ""
                     }`}
                     variant={tier.popular ? "default" : "outline"}
+                    onClick={() => handleGetStarted(tier.planKey)}
                   >
                     {tier.price === "Custom" ? "Contact Sales" : "Get Started"}
                   </Button>
@@ -210,7 +238,12 @@ const ProductDetail = () => {
                 Join thousands of companies already using our AI solutions
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="bg-white text-primary hover:bg-white/90"
+                  onClick={() => handleGetStarted('professional')}
+                >
                   Start Free Trial
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -226,6 +259,12 @@ const ProductDetail = () => {
       </div>
 
       <Footer />
+
+      <AuthModal
+        open={authModalOpen}
+        onOpenChange={setAuthModalOpen}
+        defaultTab="signup"
+      />
     </div>
   );
 };

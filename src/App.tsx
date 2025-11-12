@@ -10,6 +10,7 @@ import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Bundles from "./pages/Bundles";
 import Contact from "./pages/Contact";
+import Checkout from "./pages/Checkout";
 import Dashboard from "./pages/Dashboard";
 import AITools from "./pages/AITools";
 import Services from "./pages/Services";
@@ -32,7 +33,8 @@ const App = () => (
             <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="/bundles" element={<Bundles />} />
             <Route path="/contact" element={<Contact />} />
-            
+            <Route path="/checkout" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+
             {/* Protected Dashboard Routes */}
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/dashboard/ai-tools" element={<ProtectedRoute><AITools /></ProtectedRoute>} />
