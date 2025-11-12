@@ -14,7 +14,114 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      api_connections: {
+        Row: {
+          api_key: string
+          api_url: string
+          created_at: string | null
+          custom_headers: Json | null
+          id: string
+          last_used: string | null
+          rate_limit: number | null
+          status: string | null
+          timeout_seconds: number | null
+          tool_name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          api_key: string
+          api_url: string
+          created_at?: string | null
+          custom_headers?: Json | null
+          id?: string
+          last_used?: string | null
+          rate_limit?: number | null
+          status?: string | null
+          timeout_seconds?: number | null
+          tool_name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          api_key?: string
+          api_url?: string
+          created_at?: string | null
+          custom_headers?: Json | null
+          id?: string
+          last_used?: string | null
+          rate_limit?: number | null
+          status?: string | null
+          timeout_seconds?: number | null
+          tool_name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          company: string | null
+          created_at: string | null
+          full_name: string
+          id: string
+          phone: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          company?: string | null
+          created_at?: string | null
+          full_name: string
+          id: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          company?: string | null
+          created_at?: string | null
+          full_name?: string
+          id?: string
+          phone?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      user_services: {
+        Row: {
+          created_at: string | null
+          id: string
+          plan: string
+          price: number
+          product_name: string
+          status: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          plan: string
+          price: number
+          product_name: string
+          status?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          plan?: string
+          price?: number
+          product_name?: string
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
